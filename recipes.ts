@@ -99,7 +99,7 @@ function createRecipePage(json: Recipe) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>${recipe.name}</title>
-    ${recipe.description ? `<meta name="description" content=${recipe.description}>` : ""}
+    ${recipe.description ? `<meta name="description" content="${recipe.description}"">` : ""}
     <style>
       :root {
           color-scheme: dark light;
