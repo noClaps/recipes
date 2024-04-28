@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="A simple tool to generate clean versions of recipe pages, without any ads or long stories."
+        />
+        <title>Recipes</title>
+        <style>
+            :root {
+                color-scheme: dark light;
+                font-family: system-ui;
+            }
+
+            body {
+                margin: auto;
+                min-height: 100dvh;
+                align-content: center;
+                text-align: center;
+                width: 88dvw;
+                max-width: 64rem;
+            }
+
+            p {
+                margin-bottom: 2rem;
+            }
+
+            label {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+
+                @media (max-width: 800px) {
+                    flex-direction: column;
+                }
+            }
+
+            input {
+                background-color: canvastext;
+                color: canvas;
+                font-size: 1rem;
+                padding: 0.25rem;
+                border-radius: 0.25rem;
+                border: none;
+                flex-grow: 1;
+
+                @media (max-width: 800px) {
+                    width: 100%;
+                }
+
+                &:focus,
+                &:focus-visible {
+                    outline: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Recipes</h1>
+        <p>
+            Paste a link to a recipe website below and you'll get back a cleaned
+            up recipe page with just the instructions you need!
+        </p>
+        <form action="/recipe">
+            <label>Link to site: <input name="link" type="text" /></label>
+        </form>
+    </body>
+</html>
