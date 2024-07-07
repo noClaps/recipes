@@ -5,11 +5,14 @@
     "@types/bun": "^1.1.6"
   },
   "peerDependencies": {
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.3"
   },
   "scripts": {
-    "dev": "bun --hot index.ts",
-    "start": "bun index.ts"
+    "start": "bun main.ts"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@elysiajs/static": "^1.0.3",
+    "elysia": "^1.0.27"
+  }
 }

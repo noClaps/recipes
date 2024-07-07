@@ -11,15 +11,9 @@ A simple tool to generate clean versions of recipe pages, without any ads or lon
    cd recipes
    ```
 
-2. Install dependencies and start the development server.
+2. Install dependencies and start the server.
 
    ```bash
    bun install
-   bun dev
-   ```
-
-3. Start the production server
-
-   ```bash
    bun start
    ```

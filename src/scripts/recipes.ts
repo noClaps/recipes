@@ -1,5 +1,5 @@
 import getTimeString from "./duration";
-import errorPage from "./error.html" with { type: "text" };
+import errorPage from "../pages/error.html" with { type: "text" };
 
 type time = string;
 
@@ -50,9 +50,13 @@ export default async function recipeParser(url: string) {
   ) as Recipe;
 
   if (json["@graph"]) {
-    return createRecipePage(
-      json["@graph"].filter((m) => m["@type"] === "Recipe")[0],
-    );
+    if (json["@graph"].filter((m) => m["@type"] === "Recipe")[0]) {
+      return createRecipePage(
+        json["@graph"].filter((m) => m["@type"] === "Recipe")[0],
+      );
+    }
+
+    return errorPage;
   }
 
   return createRecipePage(json);
