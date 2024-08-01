@@ -1,4 +1,4 @@
-import getTimeString from "./duration";
+import getTimeString from "./duration.ts";
 import errorPage from "../pages/error.html" with { type: "text" };
 
 type time = string;
@@ -33,28 +33,22 @@ type HowToStep = {
 };
 
 export default async function recipeParser(url: string) {
-  const originalHTML = await fetch(url).then((r) => r.text());
+  let text = "";
+  await new HTMLRewriter()
+    .on(`script[type="application/ld+json"]`, {
+      text(t) {
+        text += t.text;
+      },
+    })
+    .transform(await fetch(url))
+    .text();
 
-  const matches = [
-    ...originalHTML.matchAll(
-      /<script type="application\/ld\+json"(?:.*)>({.*})<\/script>/gm,
-    ),
-  ];
-
-  if (matches.length === 0) {
-    return errorPage;
-  }
-
-  const json = JSON.parse(
-    matches[0].filter((m) => m.startsWith("{"))[0],
-  ) as Recipe;
+  if (!text) return errorPage;
+  const json: Recipe = JSON.parse(text);
 
   if (json["@graph"]) {
-    if (json["@graph"].filter((m) => m["@type"] === "Recipe")[0]) {
-      return createRecipePage(
-        json["@graph"].filter((m) => m["@type"] === "Recipe")[0],
-      );
-    }
+    const recipe = json["@graph"].filter((m) => m["@type"] === "Recipe")[0];
+    if (recipe) return createRecipePage(recipe);
 
     return errorPage;
   }

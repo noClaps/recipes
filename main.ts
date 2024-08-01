@@ -1,4 +1,4 @@
-import recipeParser from "./src/scripts/recipes";
+import recipeParser from "./src/scripts/recipes.ts";
 import Elysia from "elysia";
 import staticPlugin from "@elysiajs/static";
 
