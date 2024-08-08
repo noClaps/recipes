@@ -10,7 +10,7 @@ RUN bun build --compile recipe-parser.ts
 
 FROM golang as base
 
-COPY --from=recipes recipes ./
+COPY --from=recipes recipe-parser ./
 COPY . .
 RUN go build -o server main.go
 
