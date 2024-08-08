@@ -8,9 +8,9 @@ COPY package.json bun.lockb recipe-parser.ts ./
 RUN bun install --frozen-lockfile
 RUN bun build --compile recipe-parser.ts
 
-FROM golang as base
+FROM golang AS base
 
-COPY --from=recipes recipe-parser ./
+COPY --from=recipes /app/recipe-parser ./
 COPY . .
 RUN go build -o server main.go
 
