@@ -11,7 +11,8 @@ RUN bun build --compile recipe-parser.ts
 FROM golang AS base
 
 COPY --from=recipes /app/recipe-parser ./
-COPY . .
+COPY public/ public/
+COPY go.mod go.sum main.go ./
 RUN go build -o server main.go
 
 EXPOSE 8080
