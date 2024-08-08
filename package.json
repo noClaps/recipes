@@ -1,17 +1,8 @@
 {
   "name": "recipes",
-  "module": "index.ts",
-  "dependencies": {
-    "@elysiajs/static": "^1.1.0",
-    "elysia": "^1.1.4"
-  },
-  "scripts": {
-    "start": "bun main.ts"
-  },
-  "type": "module",
   "devDependencies": {
-    "@flydotio/dockerfile": "^0.5.8",
     "@types/bun": "^1.1.6",
     "typescript": "^5.5.4"
-  }
+  },
+  "type": "module"
 }

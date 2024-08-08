@@ -1,1 +1,4 @@
 node_modules/
+server
+recipe-parser
+*.bun-build
