@@ -1,15 +1,25 @@
 package main
 
 import (
+	"embed"
+	"net/http"
 	"os/exec"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/filesystem"
 )
+
+//go:embed "public/*"
+var public embed.FS
 
 func main() {
 	app := fiber.New()
 
-	app.Static("/", "./public")
+	app.Use("/", filesystem.New(filesystem.Config{
+		Root:       http.FS(public),
+		PathPrefix: "public",
+	}))
+
 	app.Get("/recipe", func(c *fiber.Ctx) error {
 		link := c.Query("link", "")
 		if link == "" {
