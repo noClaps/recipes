@@ -7,7 +7,7 @@ A simple tool to generate clean versions of recipe pages, without any ads or lon
 1. Clone the repository.
 
    ```bash
-   git clone https://github.com/noClaps/recipes.git
+   git clone https://gitlab.com/noClaps/recipes.git
    cd recipes
    ```
 
