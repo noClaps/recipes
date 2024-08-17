@@ -1,0 +1,9 @@
+default:
+  image: chainguard/wolfi-base
+  before_script:
+    - apk add curl
+    - curl -L https://fly.io/install.sh | sh
+
+deploy:
+  script:
+    - flyctl deploy --remote-only
