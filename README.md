@@ -15,5 +15,5 @@ A simple tool to generate clean versions of recipe pages, without any ads or lon
 
    ```bash
    bun install
-   bun start
+   bun dev
    ```
