@@ -1,11 +1,8 @@
-default:
-  image: chainguard/wolfi-base
-  before_script:
-    - apk add curl
-    - curl -L https://fly.io/install.sh | sh
-    - export FLYCTL_INSTALL="/root/.fly"
-    - export PATH="$FLYCTL_INSTALL/bin:$PATH"
+image: homebrew/brew
 
 deploy:
+  before_script:
+    - brew install oven-sh/bun/bun node
+    - bun install --frozen-lockfile
   script:
-    - flyctl deploy --remote-only
+    - bunx wrangler deploy

@@ -29,6 +29,32 @@ type HowToStep = {
   name?: string;
 };
 
+export default async function recipeParser(url: string) {
+  console.log("URL to parse:", url);
+
+  let text = "";
+  await new HTMLRewriter()
+    .on(`script[type="application/ld+json"]`, {
+      text(t) {
+        text += t.text;
+      },
+    })
+    .transform(await fetch(url))
+    .text();
+
+  if (!text) return;
+  const json: Recipe = JSON.parse(text);
+
+  if (json["@graph"]) {
+    const recipe = json["@graph"].filter((m) => m["@type"] === "Recipe")[0];
+    if (recipe) return createRecipePage(recipe);
+
+    return;
+  }
+
+  return createRecipePage(json);
+}
+
 function getTimeString(time: string) {
   if (!time.startsWith("P")) return "Invalid time";
   const regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/g;
@@ -66,31 +92,8 @@ function getTimeString(time: string) {
   return str;
 }
 
-async function recipeParser(url: string) {
-  let text = "";
-  await new HTMLRewriter()
-    .on(`script[type="application/ld+json"]`, {
-      text(t) {
-        text += t.text;
-      },
-    })
-    .transform(await fetch(url))
-    .text();
-
-  if (!text) return "Not found";
-  const json: Recipe = JSON.parse(text);
-
-  if (json["@graph"]) {
-    const recipe = json["@graph"].filter((m) => m["@type"] === "Recipe")[0];
-    if (recipe) return createRecipePage(recipe);
-
-    return "Not found";
-  }
-
-  return createRecipePage(json);
-}
-
 function createRecipePage(json: Recipe) {
+  console.log("Creating recipe page...");
   const recipe = {
     name: json.name,
     author: json.author?.name,
@@ -209,5 +212,3 @@ function createRecipePage(json: Recipe) {
 
   return html;
 }
-
-console.log(await recipeParser(Bun.argv[2]));
